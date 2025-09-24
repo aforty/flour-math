@@ -16,7 +16,6 @@ I had thought to (but won't likely-- no time) add some additional functionality 
 * Drop down selector of common brand name flours to auto-populate flour stats (serving size / protien)
 * Flour amount (Cups) to weight (grams) calculator, generic or brand based calculations
 
-## Demo
+## Use it
 
-You can see the working version of this app here:
-[http://flourmath.bradfordrobertson.com/]
+https://aforty.github.io/flour-math/index.html
