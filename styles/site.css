@@ -40,6 +40,7 @@ body {
   border-radius: 12px;
   margin: 0 0 12px;
   overflow: hidden;
+  scroll-margin-top: 8px;
 }
 
 .step-header {

@@ -145,16 +145,17 @@
       }
     }
     var section = document.getElementById('step-' + n);
-    if (section) {
-      var reduceMotion = window.matchMedia &&
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!section) return;
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function pinToTop() {
       try {
         section.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
       } catch (e) {
         section.scrollIntoView();
       }
     }
-    if (focusFirst && section) {
+    if (focusFirst) {
       var input = section.querySelector('input');
       if (input) {
         try {
@@ -163,6 +164,10 @@
           input.focus();
         }
       }
+      // Wait for the keyboard to open before pinning, or it covers Next.
+      setTimeout(pinToTop, 350);
+    } else {
+      setTimeout(pinToTop, animate && !reduceMotion ? 260 : 0);
     }
   }
 
