@@ -207,7 +207,7 @@
     var resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
       resetBtn.addEventListener('click', function () {
-        var defaults = { target: '30', target3: '4', target5: '100', target6: '15' };
+        var defaults = { target: '30', target3: '3', target5: '100', target6: '15' };
         for (var id in defaults) {
           if (Object.prototype.hasOwnProperty.call(defaults, id)) {
             document.getElementById(id).value = defaults[id];
