@@ -1,134 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Bread Math</title>
-  <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <script src="js/scripts.js"></script>
-  <link  rel="stylesheet" type="text/css" href="styles/site.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flour Math</title>
+  <link rel="stylesheet" type="text/css" href="styles/site.css">
+  <script src="js/scripts.js" defer></script>
 </head>
-<body class="">
-  <div class="WidthContain">
-    <h2>Flour Math</h2>
-    <p class="PageDesc">Use this page to determine the gluten/protein level of your flour, and to calculate the amount of vital wheat gluten to add to your flour to achieve a desired protein level.</p>
-    <hr />
-    <div id="AboutInfo">
-      <p>For hobbyist bakers it can be difficult to find bread flour that has the appropriate gluten content. Recipes for things like bagels, sourdoughs, pretzels and more, can require higher gluten content than what might be found in your average grocery store flour section.</p>
-      <p>First, this basic application will help bakers determine the gluten content of flour that doesn't specify it on the package.</p>
-      <p>Second, when you need to increase the glutent content of flour you can add wheat gluten to it, which typically has a 75% gluten content. This application takes care of the somewhat complicated calculations needed to determine how much wheat gluten and flour to mix. </p>
-    </div>
-    <a href="#" id="AboutToggle"><span class="DetailClosed">More About This</span><span class="DetailOpened">Less About This</span></a>
-    <ul id="CardNav">
-      <li><a href="#" class="FlipToFront Current">Calculator</a></li>
-      <li><a href="#" class="FlipToBack" >Formulas</a></li>
-    </ul>
-    <div id="FlourWhtGlutnFormula">
-      <div class="front">
-        <div class="InnerFlourWhtGlutnFromulaWrap">
-          <form>
-            <h4><span class="bigH4">Calculate</span> Your Flour Gluten <span class="SpecialChar">/</span> Protein Level</h4>
-            <div class="LabelFieldRow">
-              <span class="label">Your Flour Serving Size:</span>
-              <input id="target" type="text" value="30"> grams
-            </div>
-            <div class="LabelFieldRow">
-              <span class="label">Protein Per Serving:</span>
-              <input id="target3" type="text" value="4"> grams
-            </div>
-            <div class="LabelFieldRow">
-              <span class="label">Protein Percentage:</span>
-              <span id="target4">CALC</span> %
-            </div>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <h1>Flour Math</h1>
+    </header>
 
-            <hr />
-
-            <h4><span class="bigH4">Increase</span> Your Flour Gluten <span class="SpecialChar">/</span> Protein Level</h4>
-            <div class="TwoCol">
-              <div class="Col">
-                <h5>Desired End Product</h5>
-                <div class="LabelFieldRow">
-                  <span class="label">Target Flour Amount:</span>
-                  <input id="target5" type="text" value="100"> grams
-                </div>
-                <div class="LabelFieldRow">
-                  <span class="label">Target Protein/Gluten:</span>
-                  <input id="target6" type="text" value="15"> %
-                </div>
-              </div>
-              <div class="Col">
-                <h5>Required Mixture</h5>
-                <div class="LabelFieldRow">
-                  <span class="label">Your Flour: </span>
-                  <span id="target7">CALC</span> grams
-                </div>
-                <div class="LabelFieldRow">
-                  <span class="label">Wheat Gluten: </span>
-                  <span id="target8">CALC</span> grams
-                </div>
-              </div>
-            </div>
-          </form>
+    <main>
+      <section class="step" id="step-1" data-step="1">
+        <button type="button" class="step-header" id="header-1" aria-expanded="true" aria-controls="body-1">
+          <span class="step-num" aria-hidden="true">1</span>
+          <span class="step-text">
+            <span class="step-title">Your current flour</span>
+            <span class="step-summary" id="summary-1"></span>
+          </span>
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div class="step-body" id="body-1">
+          <div class="field">
+            <label for="target">Serving size (grams)</label>
+            <input id="target" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" value="30">
+          </div>
+          <div class="field">
+            <label for="target3">Protein per serving (grams)</label>
+            <input id="target3" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" value="4">
+          </div>
+          <p class="computed">Protein: <strong><span id="target4">&mdash;</span>%</strong></p>
+          <button type="button" class="btn-next" id="next-1">Next</button>
         </div>
-      </div>
-      <div class="back">
-        <div class="InnerFlourWhtGlutnFromulaWrap">
-          <h4 class="CenterText"><span class="bigH4">Protein</span> Calculator Formula</h4>
-          <!-- $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ -->
-          $$
-          \begin{align}
-            g = \frac{p}{f}
-          \end{align}
-          $$
-          <hr />
-          <h4 class="CenterText"><span class="bigH4">Increase</span> Protein Formula</h4>
-          <h5>Wheat Gluten Required</h5>
-          $$
-          \begin{align}
-            w = \left(\frac{\frac{(G - p)}{100}}{0.75-\frac{p}{100}}\right)F
-          \end{align}
-          $$
-          <h5>Flour Required Required</h5>
-          $$
-          \begin{align}
-            r = {F}-{w}
-          \end{align}
-          $$
-          <hr />
-          <h4 class="CenterText">Where:</h4>
-          <ul id="FormulaVariables">
-            <li>f = Your Flour Serving Size (grams)</li>
-            <li>p = Protein Content Per Serving of Your Flour (grams)</li>
-            <li>g = Gluten Percentage in Your Flour</li>
-            <li>F = Desired Final Flour Amount (grams)</li>
-            <li>G = Desired Final Gluten %</li>
-            <li>r = Required Flour (grams)</li>
-            <li>w = Required Wheat Gluten (grams)</li>
-          </ul>
+      </section>
 
+      <section class="step" id="step-2" data-step="2">
+        <button type="button" class="step-header" id="header-2" aria-expanded="false" aria-controls="body-2">
+          <span class="step-num" aria-hidden="true">2</span>
+          <span class="step-text">
+            <span class="step-title">Your desired flour</span>
+            <span class="step-summary" id="summary-2"></span>
+          </span>
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div class="step-body" id="body-2" hidden>
+          <div class="field">
+            <label for="target5">Target flour amount (grams)</label>
+            <input id="target5" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" value="100">
+          </div>
+          <div class="field">
+            <label for="target6">Target protein (%)</label>
+            <input id="target6" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" value="15">
+          </div>
+          <button type="button" class="btn-next" id="next-2">Next</button>
         </div>
-      </div>
-    </div>
-    <div id="GitHubLink">
-        <a href="https://github.com/designBr/flour-math"><span class="OctoCat"></span><span>Check out this project on GitHub</span></a>
-    </div>
+      </section>
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      <section class="step" id="step-3" data-step="3">
+        <button type="button" class="step-header" id="header-3" aria-expanded="false" aria-controls="body-3">
+          <span class="step-num" aria-hidden="true">3</span>
+          <span class="step-text">
+            <span class="step-title">Required mixture</span>
+            <span class="step-summary" id="summary-3"></span>
+          </span>
+          <span class="chevron" aria-hidden="true"></span>
+        </button>
+        <div class="step-body" id="body-3" hidden>
+          <div class="result">
+            <div class="result-row">
+              <span>Your flour</span>
+              <strong><span id="target7">&mdash;</span> g</strong>
+            </div>
+            <div class="result-row">
+              <span>Vital wheat gluten</span>
+              <strong><span id="target8">&mdash;</span> g</strong>
+            </div>
+          </div>
+          <div class="result-total" aria-label="Total equals your target amount">= <span id="target-total">&mdash;</span> g</div>
+          <p class="note" id="result-note" hidden></p>
+          <button type="button" class="btn-reset" id="reset-btn">Reset</button>
+        </div>
+      </section>
+    </main>
 
-      ga('create', 'UA-104679200-1', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-
-
-
+    <details class="footnote">
+      <summary>How it works</summary>
+      <p>Protein % = protein per serving &divide; serving size &times; 100.</p>
+      <p>Gluten to add = ((target % &minus; current %) &divide; 100) &divide; (0.75 &minus; current % &divide; 100) &times; target amount. Flour needed = target amount &minus; gluten. Vital wheat gluten is treated as 75% protein.</p>
+    </details>
   </div>
 </body>
 </html>
